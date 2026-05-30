@@ -27,7 +27,21 @@
     --radius-md: 16px;
     --radius-lg: 22px;
 }
+.datetime-display {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-weight: 500;
+}
 
+/* bikin lebih “app feel” */
+.datetime-display::before {
+    content: "🕒";
+    margin-right: 4px;
+}
 [data-theme="dark"] {
     --bg-global: #0f1115;
     --bg-card: #1b1f27;
@@ -360,6 +374,11 @@ input:checked + .slider:before {
             <div class="header-title-area">
                 <img src="https://i.ibb.co.com/1fHCTtJ5/logo.png" alt="Logo Madrasah" class="madrasah-logo">
                 <h1>Daftar Rekapitulasi Laporan Excel</h1>
+                <div class="datetime-display">
+                    <span id="dayText">-</span>, 
+                    <span id="dateText">-</span> 
+                    <span id="timeText">-</span>
+                </div>
             </div>
             <div class="theme-switch-wrapper">
                 <span>Mode Malam</span>
@@ -631,7 +650,35 @@ input:checked + .slider:before {
                 localStorage.setItem('theme', 'light');
             }    
         }
+function updateDateTime() {
+    const now = new Date();
 
+    const days = [
+        "Minggu", "Senin", "Selasa", "Rabu",
+        "Kamis", "Jumat", "Sabtu"
+    ];
+
+    const day = days[now.getDay()];
+
+    const date = now.toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
+
+    const time = now.toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    });
+
+    document.getElementById("dayText").textContent = day;
+    document.getElementById("dateText").textContent = date;
+    document.getElementById("timeText").textContent = time;
+}
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
         toggleSwitch.addEventListener('change', switchTheme, false);
     </script>
 </body>
