@@ -411,7 +411,7 @@ input:checked + .slider:before {
                     <div class="report-meta">Format: Excel (.xlsx)</div>
                 </div>
                 <div class="card-action">
-                    <a href="#" class="btn-view">Lihat Excel</a>
+                    <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSqppjVDa43TxU_XdJN1vhrshiiG-vwmQKhXN0Z7PCYxpG47PFLvTcFTIjys4J1deqwlFpoXwOn3vFl/pubhtml?gid=296263183&single=true" class="btn-view">Lihat Excel</a>
                 </div>
             </div>
             <div class="card" data-kelas="7b">
@@ -645,58 +645,58 @@ input:checked + .slider:before {
                 localStorage.setItem('theme', 'light');
             }    
         }
-function updateDateTime() {
-    const now = new Date();
+        function updateDateTime() {
+        const now = new Date();
 
-    const days = [
-        "Minggu", "Senin", "Selasa", "Rabu",
-        "Kamis", "Jumat", "Sabtu"
-    ];
+        const days = [
+            "Minggu", "Senin", "Selasa", "Rabu",
+            "Kamis", "Jumat", "Sabtu"
+        ];
 
-    const day = days[now.getDay()];
+        const day = days[now.getDay()];
 
-    const date = now.toLocaleDateString("id-ID", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-    });
+        const date = now.toLocaleDateString("id-ID", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
 
-    const time = now.toLocaleTimeString("id-ID", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-    });
+        const time = now.toLocaleTimeString("id-ID", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
 
-    document.getElementById("dayText").textContent = day;
-    document.getElementById("dateText").textContent = date;
-    document.getElementById("timeText").textContent = time;
-}
+        document.getElementById("dayText").textContent = day;
+        document.getElementById("dateText").textContent = date;
+        document.getElementById("timeText").textContent = time;
+        }
 
-updateDateTime();
-setInterval(updateDateTime, 1000);
-        toggleSwitch.addEventListener('change', switchTheme, false);
-    // Disable klik kanan
-document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-});
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+                toggleSwitch.addEventListener('change', switchTheme, false);
+            // Disable klik kanan
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
 
-// Disable beberapa tombol inspect umum
-document.addEventListener('keydown', function (e) {
-    // F12
-    if (e.key === "F12") {
-        e.preventDefault();
-    }
+        // Disable beberapa tombol inspect umum
+        document.addEventListener('keydown', function (e) {
+            // F12
+            if (e.key === "F12") {
+                e.preventDefault();
+            }
 
-    // Ctrl + Shift + I / J / C
-    if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) {
-        e.preventDefault();
-    }
+            // Ctrl + Shift + I / J / C
+            if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) {
+                e.preventDefault();
+            }
 
-    // Ctrl + U (view source)
-    if (e.ctrlKey && e.key === 'u') {
-        e.preventDefault();
-    }
-});
+            // Ctrl + U (view source)
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
