@@ -5,466 +5,350 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekapitulasi KBM</title>
     <link rel="icon" href="https://i.ibb.co.com/1fHCTtJ5/logo.png" />
-    <style>
-        /* ==========================================================================
-           1. DESIGN SYSTEM & VARIABLE THEMES
-           ========================================================================== */
-        :root {
-            --bg-global: #f0f3f7;
-            --bg-card: #ffffff;
-            --text-main: #212121;
-            --text-muted: #6D7588;
-            --border-card: #e5e7e9;
-            --shadow: 0 1px 6px 0 rgba(49,53,59,0.12);
-            --search-focus: #03AC0E;
-            
-            /* Warna Identitas Kelas (Mode Siang) */
-            --color-c7: #03AC0E; /* Hijau */
-            --color-c8: #0077C2; /* Biru */
-            --color-c9: #D32F2F; /* Merah */
-        }
+/* ==========================================================================
+   DESIGN SYSTEM
+   ========================================================================== */
+:root {
+    --bg-global: #f5f7fb;
+    --bg-card: #ffffff;
+    --text-main: #1e1e1e;
+    --text-muted: #6b7280;
+    --border-card: rgba(0,0,0,0.06);
+    --shadow-sm: 0 2px 10px rgba(0,0,0,0.06);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.10);
+    --search-focus: #03AC0E;
 
-        [data-theme="dark"] {
-            --bg-global: #121212;
-            --bg-card: #1e1e1e;
-            --text-main: #eaeaea;
-            --text-muted: #a0a0a0;
-            --border-card: #333333;
-            --shadow: 0 2px 10px rgba(0,0,0,0.5);
-            --search-focus: #23c52e;
+    --color-c7: #03AC0E;
+    --color-c8: #0077C2;
+    --color-c9: #D32F2F;
 
-            /* Warna Identitas Kelas (Mode Malam) */
-            --color-c7: #1db927;
-            --color-c8: #2196F3;
-            --color-c9: #EF5350;
-        }
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+}
 
-        /* ==========================================================================
-           2. BASE STYLES
-           ========================================================================== */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+[data-theme="dark"] {
+    --bg-global: #0f1115;
+    --bg-card: #1b1f27;
+    --text-main: #eaeaea;
+    --text-muted: #9aa4b2;
+    --border-card: rgba(255,255,255,0.06);
+    --shadow-sm: 0 2px 12px rgba(0,0,0,0.4);
+    --shadow-md: 0 10px 28px rgba(0,0,0,0.6);
 
-        body {
-            background-color: var(--bg-global);
-            color: var(--text-main);
-            padding: 40px 20px;
-            transition: background-color 0.25s ease;
-        }
+    --color-c7: #1db927;
+    --color-c8: #2196F3;
+    --color-c9: #EF5350;
+}
 
-        .wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
 
-        /* ==========================================================================
-           3. HEADER SECTION (With Madrasah Logo)
-           ========================================================================== */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-card);
-        }
-
-        .header-title-area {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .madrasah-logo {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-        }
-
-        header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .theme-switch-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .theme-switch {
-            display: inline-block;
-            height: 24px;
-            position: relative;
-            width: 46px;
-        }
-
-        .theme-switch input { display: none; }
-
-        .slider {
-            background-color: #B2B4B6;
-            bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0;
-            transition: .3s; border-radius: 24px;
-        }
-
-        .slider:before {
-            background-color: #fff; bottom: 3px; content: ""; height: 18px; left: 4px;
-            position: absolute; transition: .3s; width: 18px; border-radius: 50%;
-        }
-
-        input:checked + .slider { background-color: var(--color-c7); }
-        input:checked + .slider:before { transform: translateX(20px); }
-
-        /* =========================
-           MOBILE APP STYLE UPGRADE
-           ========================= */
-        
-        body {
-            padding: 16px;
-        }
-        
-        /* APP BAR STYLE HEADER */
-        header {
-            position: sticky;
-            top: 0;
-            background: var(--bg-global);
-            z-index: 10;
-            padding: 10px 0;
-            backdrop-filter: blur(10px);
-        }
-        
-        /* SEARCH = MOBILE STYLE */
-        .search-container {
-            margin-bottom: 20px;
-        }
-        
-        .search-input {
-            border-radius: 14px;
-            padding: 14px 16px 14px 44px;
-            font-size: 0.9rem;
-        }
-        
-        /* GRID MOBILE FEEL */
-        .report-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-        
-        /* CARD = APP TILE */
-        .card {
-            border-radius: 16px;
-            border: none;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-        
-        .card:active {
-            transform: scale(0.97);
-        }
-        
-        /* THUMBNAIL = BIG SOFT TILE */
-        .card-thumbnail {
-            height: 80px;
-            border-radius: 16px 16px 0 0;
-        }
-        
-        /* ICON TOGA */
-        .card-thumbnail-logo {
-            width: 34px;
-            height: 34px;
-        }
-        
-        /* TEXT */
-        .report-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
-        
-        .report-meta {
-            font-size: 0.7rem;
-        }
-        
-        /* BUTTON STYLE MOBILE */
-        .btn-view {
-            border-radius: 12px;
-            font-size: 0.75rem;
-            padding: 8px;
-        }
-        
-        /* BADGE */
-        .class-badge {
-            font-size: 0.65rem;
-            border-radius: 999px;
-            padding: 3px 8px;
-        }
-        
-        /* RESPONSIVE TABLET */
-        @media (min-width: 768px) {
-            .report-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        /* ==========================================================================
-           4. SEARCH BAR COMPONENT
-           ========================================================================== */
-        .search-container {
-            position: relative;
-            margin-bottom: 35px;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 14px 16px 14px 45px;
-            font-size: 0.95rem;
-            border: 1px solid var(--border-card);
-            border-radius: 8px;
-            background-color: var(--bg-card);
-            color: var(--text-main);
-            box-shadow: var(--shadow);
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .search-input:focus {
-            border-color: var(--search-focus);
-            box-shadow: 0 0 0 3px rgba(3, 172, 14, 0.15);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            fill: var(--text-muted);
-            pointer-events: none;
-            width: 18px;
-            height: 18px;
-        }
-
-        .no-results {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            background-color: var(--bg-card);
-            border-radius: 8px;
-            border: 1px solid var(--border-card);
-            box-shadow: var(--shadow);
-        }
-
-        /* ==========================================================================
-           5. GRID & CARD COMPONENT
-           ========================================================================== */
-        .report-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-card);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .card.hidden {
-            display: none !important;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(49,53,59,0.2);
-        }
-
-        .card-thumbnail {
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* Background warna dasar per tingkat kelas */
-        .card[data-kelas^="7"] .card-thumbnail { background-color: var(--color-c7); }
-        .card[data-kelas^="8"] .card-thumbnail { background-color: var(--color-c8); }
-        .card[data-kelas^="9"] .card-thumbnail { background-color: var(--color-c9); }
-
-        /* Logo Excel Baru Di Dalam Kartu */
-        .card-thumbnail-logo {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.15));
-        }
-
-        .card-info {
-            padding: 14px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .class-badge {
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 4px;
-            align-self: flex-start;
-            color: #ffffff;
-        }
-        
-        .card[data-kelas^="7"] .class-badge { background-color: var(--color-c7); }
-        .card[data-kelas^="8"] .class-badge { background-color: var(--color-c8); }
-        .card[data-kelas^="9"] .class-badge { background-color: var(--color-c9); }
-
-        .report-title {
-            font-size: 1rem;
-            font-weight: 700;
-            line-height: 1.4;
-            color: var(--text-main);
-            margin-top: 4px;
-        }
-
-        .report-meta {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: auto;
-            padding-top: 10px;
-        }
-
-        .card-action {
-            padding: 0 14px 14px 14px;
-        }
-
-        .btn-view {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            background-color: transparent;
-            text-decoration: none;
-            padding: 8px 0;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            transition: all 0.2s ease;
-        }
-
-        .card[data-kelas^="7"] .btn-view { border: 1px solid var(--color-c7); color: var(--color-c7); }
-        .card[data-kelas^="7"] .btn-view:hover { background-color: var(--color-c7); color: #fff; }
-
-        .card[data-kelas^="8"] .btn-view { border: 1px solid var(--color-c8); color: var(--color-c8); }
-        .card[data-kelas^="8"] .btn-view:hover { background-color: var(--color-c8); color: #fff; }
-
-        .card[data-kelas^="9"] .btn-view { border: 1px solid var(--color-c9); color: var(--color-c9); }
-        .card[data-kelas^="9"] .btn-view:hover { background-color: var(--color-c9); color: #fff; }
-        
-        .search-icon {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        fill: var(--text-muted);
-        pointer-events: none;
-        width: 18px;
-        height: 18px;
-        z-index: 2;
-        /* FIX TAMBAHAN PENTING */
-        display: block;
-        }
-
-        @media (max-width: 768px) {
-        body {
-            padding: 16px 12px;
-        }
-
-        header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        header h1 {
-            font-size: 1.1rem;
-            line-height: 1.3;
-        }
-
-        .search-container {
-            max-width: 100%;
-        }
-
-        .search-input {
-            font-size: 0.9rem;
-            padding: 12px 14px 12px 42px;
-        }
-
-        .search-icon {
-            width: 16px;
-            height: 16px;
-            left: 12px;
-        }
-
-        .report-grid {
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        .card {
-            border-radius: 12px;
-        }
-
-        .card-thumbnail {
-            height: 90px;
-        }
-
-        .card-info {
-            padding: 12px;
-        }
-
-        .class-badge {
-            font-size: 0.7rem;
-        }
-
-        .report-title {
-            font-size: 0.95rem;
-        }
-
-        .btn-view {
-            font-size: 0.8rem;
-            padding: 10px 0;
-        }
-    }
-
-    html, body {
+html, body {
     -webkit-text-size-adjust: 100%;
     overflow-x: hidden;
-    }
+}
 
-    .card-thumbnail-logo {
-    width: 48px;
-    height: 48px;
+body {
+    background: var(--bg-global);
+    color: var(--text-main);
+    padding: 18px;
+    transition: all 0.25s ease;
+}
+
+.wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   HEADER (APP BAR STYLE)
+   ========================================================================== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 14px 16px;
+    margin-bottom: 18px;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+
+    position: sticky;
+    top: 10px;
+    z-index: 20;
+    backdrop-filter: blur(12px);
+}
+
+.header-title-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.madrasah-logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+header h1 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* ==========================================================================
+   THEME SWITCH
+   ========================================================================== */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.theme-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background: #c4c7cc;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    top: 3px;
+    border-radius: 50%;
+    background: white;
+    transition: 0.3s ease;
+}
+
+input:checked + .slider {
+    background: var(--color-c7);
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* ==========================================================================
+   SEARCH
+   ========================================================================== */
+.search-container {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 14px 14px 44px;
+
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-card);
+
+    background: var(--bg-card);
+    color: var(--text-main);
+
+    box-shadow: var(--shadow-sm);
+
+    outline: none;
+    font-size: 0.9rem;
+
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    border-color: var(--search-focus);
+    box-shadow: 0 0 0 4px rgba(3,172,14,0.12);
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    fill: var(--text-muted);
+}
+
+/* ==========================================================================
+   NO RESULTS
+   ========================================================================== */
+.no-results {
+    display: none;
+    text-align: center;
+    padding: 24px;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-card);
+}
+
+/* ==========================================================================
+   GRID (MOBILE-FIRST)
+   ========================================================================== */
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+@media (min-width: 768px) {
+    .report-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ==========================================================================
+   CARD (APP TILE STYLE)
+   ========================================================================== */
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+
+    border: 1px solid var(--border-card);
+    box-shadow: var(--shadow-sm);
+
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.card:active {
+    transform: scale(0.97);
+}
+
+/* THUMBNAIL */
+.card-thumbnail {
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CLASS COLORS */
+.card[data-kelas^="7"] .card-thumbnail { background: var(--color-c7); }
+.card[data-kelas^="8"] .card-thumbnail { background: var(--color-c8); }
+.card[data-kelas^="9"] .card-thumbnail { background: var(--color-c9); }
+
+/* ICON */
+.card-thumbnail-logo {
+    width: 34px;
+    height: 34px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+/* INFO */
+.card-info {
+    padding: 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.class-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+    color: white;
+    align-self: flex-start;
+}
+
+.card[data-kelas^="7"] .class-badge { background: var(--color-c7); }
+.card[data-kelas^="8"] .class-badge { background: var(--color-c8); }
+.card[data-kelas^="9"] .class-badge { background: var(--color-c9); }
+
+.report-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.report-meta {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+/* ACTION */
+.card-action {
+    padding: 10px;
+}
+
+.btn-view {
     display: block;
+    text-align: center;
+    padding: 8px;
+
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    text-decoration: none;
+    border: 1px solid currentColor;
+
+    transition: all 0.2s ease;
+}
+
+.card[data-kelas^="7"] .btn-view { color: var(--color-c7); }
+.card[data-kelas^="8"] .btn-view { color: var(--color-c8); }
+.card[data-kelas^="9"] .btn-view { color: var(--color-c9); }
+
+.card[data-kelas^="7"] .btn-view:hover { background: var(--color-c7); color: white; }
+.card[data-kelas^="8"] .btn-view:hover { background: var(--color-c8); color: white; }
+.card[data-kelas^="9"] .btn-view:hover { background: var(--color-c9); color: white; }
+
+/* ==========================================================================
+   MOBILE TUNING
+   ========================================================================== */
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
     }
 
-    </style>
+    header h1 {
+        font-size: 0.95rem;
+    }
+
+    .report-grid {
+        gap: 10px;
+    }
+
+    .card-thumbnail {
+        height: 72px;
+    }
+}
 </head>
 <body>
 
